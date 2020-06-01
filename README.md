@@ -4,12 +4,18 @@
 
 API je interfejs, predstavlja neki sloj koji omogućava lakšu i standardizovanu
 komunikaciju među aplikacijama. Detalji kako sprovodi neki program neku funkciju 
-je skriveno iza. unutar programa. 
+je skriveno iza unutar programa. 
+
 Na primer, kad se pritisne dugme da se ugasi računar, svašta se tu dešava iza,
 što je u suštini nebitno za korisnika, bitan je jedino rezultat
-Primerice zamisli da imaš ogromnu bazu podataka koja je korisna određenoj grupi ljudi, da bi ti korisnici imali korist neku od
+Primerice zamisli da imaš ogromnu bazu podataka koja je korisna određenoj grupi ljudi, da bi ti korisnici imali korist neku
+od tih podataka, ti bi morala da napraviš neki interfejs da bi korisnici 
+mogli lakše da koriste tu bazu podataka, tipa recimo da korisnici preko
+aplikacije pošalju neko ime, pa ta aplikacija da vrati iz baze podataka
+sve redove koje sadrže to ime
 
-REST API je poseban stil softverske arhitekture sa kojim se šalju JSON format
+REST API je poseban stil softverske arhitekture za API, obično se koristi
+JSON format za komunikaciju između aplikacija
 Primer ovao izgleda:
 {
 	"ime":"Johnny",
@@ -63,3 +69,7 @@ reps - dodatne funkcije za pretraživanje, npr po imenu
 Kontroler za Student, Projekat, Grupa Smer
 GrupaRestController - to je kontroler posvećen klasi Grupa, on služi za prihvatanje requesta i prikazivanje podataka vezano za tabelu Grupa u bazi podaka. Na primer ako pošaljemo DELETE request
 na link /grupa/2 on će obrisati grupu koja ima id = 2
+
+## Requestovi
+
+GET, POST, PUT, DELETE
