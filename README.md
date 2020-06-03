@@ -1,75 +1,84 @@
 # Backend projekat
 
-## API
+## REST API
 
 API je interfejs, predstavlja neki sloj koji omogućava lakšu i standardizovanu
-komunikaciju među aplikacijama. Detalji kako sprovodi neki program neku funkciju 
-je skriveno iza unutar programa. 
+komunikaciju među aplikacijama. Definiše razne zehteve i pozive koji se mogu vršiti
+da se dobije željeni rezultat.
 
-Na primer, kad se pritisne dugme da se ugasi računar, svašta se tu dešava iza,
-što je u suštini nebitno za korisnika, bitan je jedino rezultat
-Primerice zamisli da imaš ogromnu bazu podataka koja je korisna određenoj grupi ljudi, da bi ti korisnici imali korist neku
-od tih podataka, ti bi morala da napraviš neki interfejs da bi korisnici 
-mogli lakše da koriste tu bazu podataka, tipa recimo da korisnici preko
-aplikacije pošalju neko ime, pa ta aplikacija da vrati iz baze podataka
-sve redove koje sadrže to ime
+REST API je posebna implementacija API-a.
+Koristi se najčešće JSON format za komunikaciju između aplikacija.
 
-REST API je poseban stil softverske arhitekture za API, obično se koristi
-JSON format za komunikaciju između aplikacija
-Primer ovao izgleda:
+Primer kako izgleda JSON:
+```
 {
 	"ime":"Johnny",
 	"prezime":"Depp"
 }
-JSON
-
-JSON je format koji se koristi za slanje podataka na internetu, 
-alternative složenijem XML format.
-
-
-MVC arhitektura
-To je jedna od arhitektura koja se često koristi za izgradnju web aplikcija.
+```
+## MVC Arhitektura
+To je jedna od arhitektura koja se često koristi za izgradnju web aplikcije.
 Model - View - Controller
 View je korisnički interfejs, to jest ono što vidimo
-Controller je ono iza u kodu šta ne vidimo
-Controller određuje šta će korisnik videti, koji "View" to jest šta će da prikaže u brauzeru
-Na primer kontroler čita url /login, pa će kontroler prikazati korisniku 
+Controller je ono iza u kodu šta ne vidimo i određuje šta će korisnik videti u zavisnosti od toga šta zahteva.
+
+Na primer korisnik uđe na /login resurs, pa će kontroler prikazati korisniku 
 formu za login itd
-ili /student/ime/ana ako je u pitanju neka databaza kontroler bi verovatno(ako
-je tako isprogramirano) prikazao podatke o studentu kojem je ime ana
-i
+
 ## Baza podataka
-PostgresSQL je server za bazu podataka
-A SQL je samo standardizovani jezik koji se koristi za izvršavanje "query"-ija
-za baze podataka
-recimo "SHOW * FROM student" prikaže sve redove tabele student
+PostgreSQL je server za bazu podataka.
+A SQL je samo standardizovani jezik koji se koristi za manipulisanjem
+bazama podataka.
+Primer: `SHOW * FROM student` će nam sve redove redove iz tabele student.
 
-## Projekat fajl struktura
+Imamo jednu bazu podataka i četiri tabele: student, grupa, smer, projekat.
+
+## Projekat fajl struktura i paketi
 Glavni fajlovi i klase za projekat se nalaze unutar
-src/main (neka te podseti "main" - glavno na eng.)
+*src/main/java* foldera. (neka te podseti "main" - glavno na eng.)
 
-unutar toga imamo java i resource
-Java tu su razne klase, kod koji je pisan
-A za Resources su razni konfiguracioni fajlovi, skripte i razni resursi
+Unutar toga imamo *java* i *resource*
+Java tu su razne klase, naš kod koji je pisan.
+A za Resources su razni konfiguracioni fajlovi, skripte i razni resursi.
 
+Imamo **ctrl**,**jpa**, **reps** pakete unutar glavnog **rppim**
 
-Da se pokrene aplikacija uđe se na src/main/java/rppim 
-i pored naših paketa imamo tamo RppImApplication
+**ctrl** - tu su svi kontroleri za naš projekat(Student, Grupa, Projekat, Smer)
+**jpa** - služi za predstavljanje elementima u bazi podataka preko objekta/klasa
+**reps** - dodatne funkcije za pretraživanje, npr po imenu
+
+Primer:
+
+**GrupaRestController** - unutar **ctrl** paketa, to je kontroler posvećen klasi Grupa, on služi za prihvatanje zahteva i odlučivanje šta će se desiti sa bazom podataa u našem slučaju. Na primer ako pošaljemo DELETE request
+na `link/grupa/2` on će indirektno preko JPA i JDBC obrisati grupu koja ima `id = 2
+
+## Pokretanje Aplikacije
+
+Da se pokrene aplikacija uđe se na *src/main/java/rppim* 
+i pored naših paketa imamo tu i RppImApplication
 Desni klik, run as, i run as Spring Boot App
+![](start.png)
 
-## Paketi - Packages
 
-Imamo ctrl, jpa, reps
 
-ctrl - kontroler paket
-tu su svi kontroleri za naš projekat
-jpa - služi za predstavljanje i povezivanje klase/objekta sa baza podataka
-reps - dodatne funkcije za pretraživanje, npr po imenu
+Treba sačekati malo dok se ne pokrene, pa onda uđemo na brauzer i ukucamo **localhost:8083**
 
-Kontroler za Student, Projekat, Grupa Smer
-GrupaRestController - to je kontroler posvećen klasi Grupa, on služi za prihvatanje requesta i prikazivanje podataka vezano za tabelu Grupa u bazi podaka. Na primer ako pošaljemo DELETE request
-na link /grupa/2 on će obrisati grupu koja ima id = 2
+I treba prikaže "Hello World!" tekst.
+
+Da nam prikaže sve elemente u bazi podataka za tabelu student, uđemo na **localhost:8083/student**
+
+
+
+`
 
 ## Requestovi
 
-GET, POST, PUT, DELETE
+U kontrolerima prihvatamo razne zahteve:
+
+**GET** - služi za dobijanje resursa od servera
+
+**POST** - služi da pošaljemo nešto serveru
+
+**PUT** - da izmenimo neku informaciju
+
+**DELETE** - da obrišemo nešto(npr. korisnika iz baze podataka)
