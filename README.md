@@ -31,7 +31,8 @@ A SQL je samo standardizovani jezik koji se koristi za manipulisanjem
 bazama podataka.
 Primer: `SHOW * FROM student` će nam sve redove redove iz tabele student.
 
-Imamo jednu bazu podataka i četiri tabele: student, grupa, smer, projekat.
+Imamo jednu bazu podataka i unutar nje četiri tabele: student, grupa, smer, projekat.
+![](baza.png)
 
 ## Projekat fajl struktura i paketi
 Glavni fajlovi i klase za projekat se nalaze unutar
