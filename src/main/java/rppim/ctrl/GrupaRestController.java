@@ -41,7 +41,7 @@ public class GrupaRestController {
 	
 	@ApiOperation(value="Returns collection of grupa that contains oznaka that was forwarded as path variable")
 	@GetMapping("grupa/oznaka/{oznaka}")
-	public Collection<Grupa> getByNaziv(@PathVariable("oznaka") String oznaka){
+	public Collection<Grupa> getByNaziv(@PathVariable("znacka") String oznaka){
 		return grupaRepository.findByOznakaContainingIgnoreCase(oznaka);
 	}
 	@ApiOperation(value = "Adds instance of Grupa to database")
